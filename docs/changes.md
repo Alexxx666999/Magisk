@@ -6,7 +6,7 @@
 - [App] Fix support for Android lower than 8.0
 - [General] Fix support for MTK Samsung devices
 - [MagiskInit] Fix a regression for 2SI devices
-- [MagiskPolicy] Fix a regression causing `overlay.d` replaced files to be not accessible
+- [Magi6skPolicy] Fix a regression causing `overlay.d` replaced files to be not accessible
 
 ### v28.0
 
