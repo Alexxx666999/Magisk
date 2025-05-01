@@ -85,13 +85,11 @@ LOCAL_STATIC_LIBRARIES := \
     libbase \
     liblzma \
     liblz4 \
-    libzopfli \
     libboot-rs
 
 LOCAL_SRC_FILES := \
     boot/main.cpp \
     boot/bootimg.cpp \
-    boot/compress.cpp \
     boot/format.cpp \
     boot/boot-rs.cpp
 

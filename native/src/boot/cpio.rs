@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 use std::collections::{BTreeMap, HashMap};
 use std::fmt::{Display, Formatter};
 use std::fs::File;
-use std::io::{Read, Write};
+use std::io::{Cursor, Read, Write};
 use std::mem::size_of;
 use std::process::exit;
 use std::str;
@@ -25,7 +25,8 @@ use base::{
 };
 
 use crate::check_env;
-use crate::ffi::{unxz, xz};
+use crate::compress::{compress, decompress};
+use crate::ffi::FileFormat;
 use crate::patch::{patch_encryption, patch_verity};
 
 #[derive(FromArgs)]
@@ -696,7 +697,7 @@ impl CpioEntry {
             return false;
         }
         let mut compressed = Vec::new();
-        if !xz(&self.data, &mut compressed) {
+        if compress(FileFormat::XZ, Cursor::new(&self.data), &mut compressed).is_err() {
             eprintln!("xz compression failed");
             return false;
         }
@@ -709,7 +710,7 @@ impl CpioEntry {
             return false;
         }
         let mut decompressed = Vec::new();
-        if !unxz(&self.data, &mut decompressed) {
+        if decompress(FileFormat::XZ, Cursor::new(&self.data), &mut decompressed).is_err() {
             eprintln!("xz decompression failed");
             return false;
         }
